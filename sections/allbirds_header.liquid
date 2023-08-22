@@ -1,0 +1,200 @@
+<{% if section.settings.custom_enable_sticky_header %}sticky-header{% else %}div{% endif %}>
+    <header class="allbirds-header">
+        {{ 'custom_base.css' | asset_url | stylesheet_tag }}
+        <style>
+            {{ section.settings.custom_header_font | font_face }}
+        
+            .allbirds-header {
+                font-family: {{ section.settings.custom_header_font.family }};
+                font-weight: 400;
+                font-size: 2.5rem;
+                border-bottom: 1px solid #e0e0e0;
+                background-color: white;
+                
+            }    
+        </style>
+        
+        <nav class="custom-navbar">
+            <ul class="custom-nav-list">
+                {%- for link in section.settings.menu.links -%}
+                <li class="custom-nav-item">
+                    <a href="{{ link.url }}">{{ link.title | upcase }}</a>
+                </li>
+                {%- endfor -%}
+            </ul>
+            <div class="custom-nav-logo">
+                <a href="{{ routes.root_url }}">
+                    {%- assign image_size = section.settings.logo_width | append: 'x' -%}
+                    {%- if section.settings.logo != blank -%}
+                        <img srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+                            src="{{ section.settings.logo | img_url: image_size }}"
+                            loading="lazy"
+                            class="header__heading-logo"
+                            width="{{ section.settings.logo.width }}"
+                            height="{{ section.settings.logo.height }}"
+                            alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
+                        >
+                    {%- else -%}
+                        <span class="h4">{{ shop.name }}</span>
+                    {%- endif -%}
+                </a>
+            </div>
+        
+            <div class="custom-nav-cart">
+                <div class="custom-nav-cart-item">
+                    <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
+                        {%- liquid 
+                            if cart == empty
+                                render 'icon-info'
+                            else 
+                                render 'icon-cart-2'
+                            endif
+                        %}
+                    </a>
+                </div>
+                <div class="custom-nav-cart-item">
+                    <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
+                        {%- liquid 
+                            if cart == empty
+                                render 'icon-cart-2'
+                            else 
+                                render 'icon-cart-2'
+                            endif
+                        %}
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+</{% if section.settings.enable_sticky_header %}sticky-header{% else %}div{% endif %}>
+{% javascript %}
+  class StickyHeader extends HTMLElement {
+    constructor() {
+      super();
+    }
+
+    connectedCallback() {
+      this.header = document.getElementById('shopify-section-allbirds_header');
+      this.headerBounds = {};
+      this.currentScrollTop = 0;
+      this.preventReveal = false;
+
+      this.onScrollHandler = this.onScroll.bind(this);
+      this.hideHeaderOnScrollUp = () => this.preventReveal = true;
+
+      this.addEventListener('preventHeaderReveal', this.hideHeaderOnScrollUp);
+      window.addEventListener('scroll', this.onScrollHandler, false);
+
+      this.createObserver();
+    }
+
+    disconnectedCallback() {
+      this.removeEventListener('preventHeaderReveal', this.hideHeaderOnScrollUp);
+      window.removeEventListener('scroll', this.onScrollHandler);
+    }
+
+    createObserver() {
+      let observer = new IntersectionObserver((entries, observer) => {
+        this.headerBounds = entries[0].intersectionRect;
+        observer.disconnect();
+      });
+
+      observer.observe(this.header);
+    }
+
+    onScroll() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (scrollTop > this.currentScrollTop && scrollTop > this.headerBounds.bottom) {
+        requestAnimationFrame(this.hide.bind(this));
+      } else if (scrollTop < this.currentScrollTop && scrollTop > this.headerBounds.bottom) {
+        if (!this.preventReveal) {
+          requestAnimationFrame(this.reveal.bind(this));
+        } else {
+          window.clearTimeout(this.isScrolling);
+
+          this.isScrolling = setTimeout(() => {
+            this.preventReveal = false;
+          }, 66);
+
+          requestAnimationFrame(this.hide.bind(this));
+        }
+      } else if (scrollTop <= this.headerBounds.top) {
+        requestAnimationFrame(this.reset.bind(this));
+      }
+
+
+      this.currentScrollTop = scrollTop;
+    }
+
+    hide() {
+      //this.header.classList.add('shopify-section-header-hidden', 'shopify-section-header-sticky');
+      this.header.classList.add('shopify-section-header-sticky');
+      this.closeMenuDisclosure();
+      this.closeSearchModal();
+    }
+
+    reveal() {
+      this.header.classList.add('shopify-section-header-sticky', 'animate');
+      this.header.classList.remove('shopify-section-header-hidden');
+    }
+
+    reset() {
+      this.header.classList.remove('shopify-section-header-hidden', 'shopify-section-header-sticky', 'animate');
+    }
+
+    closeMenuDisclosure() {
+      this.disclosures = this.disclosures || this.header.querySelectorAll('details-disclosure');
+      this.disclosures.forEach(disclosure => disclosure.close());
+    }
+
+    closeSearchModal() {
+      this.searchModal = this.searchModal || this.header.querySelector('details-modal');
+      this.searchModal.close(false);
+    }
+  }
+
+  customElements.define('sticky-header', StickyHeader);
+{% endjavascript %}
+
+
+{% schema %}
+{
+    "name": "allbirds_header",
+    "settings": [
+        {
+            "type": "link_list",
+            "id": "menu",
+            "default": "main-menu",
+            "label": "t:sections.header.settings.menu.label"
+        },
+        {
+            "type": "image_picker",
+            "id": "logo",
+            "label": "t:sections.header.settings.logo.label"
+        },
+        {
+            "type": "range",
+            "id": "logo_width",
+            "min": 50,
+            "max": 250,
+            "step": 10,
+            "default": 100,
+            "unit": "t:sections.header.settings.logo_width.unit",
+            "label": "t:sections.header.settings.logo_width.label"
+        },
+        {
+            "type": "font_picker",
+            "id": "custom_header_font",
+            "label": "custom_header_font",
+            "default": "geometric_415_n4"
+        },
+        {
+            "type": "checkbox",
+            "id": "custom_enable_sticky_header",
+            "default": true,
+            "label": "Fixierten Header aktivieren"
+        }
+    ]
+}
+{% endschema %}

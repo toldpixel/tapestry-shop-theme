@@ -319,3 +319,44 @@
 .banner__heading {
   margin-bottom: 0;
 }
+
+/* Additional CSS Banner Box alternative ********************************************************************* Custom *************************/
+@media screen and (max-width: 749px) {
+  .bannerbox_title_wrapper {
+    display: none;
+  }
+}
+
+.bannerbox_title_wrapper {
+  width: 90rem;
+  line-height: initial;
+}
+
+.hero_text_title {
+  color: #fff;
+  font-size: 7rem;
+  font-weight: bold;
+}
+
+.hero__subtitle {
+  color: #fff;
+  font-size: 3rem;
+  overflow-wrap:break-word;
+  
+}
+
+.button_v1 {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.button_v1:hover {
+  background-color: #3e8e41;
+}

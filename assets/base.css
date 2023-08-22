@@ -1837,6 +1837,8 @@ input[type='checkbox'] {
 .shopify-section-header-sticky {
   position: sticky;
   top: 0;
+  background-color: white;
+  z-index: 4;
 }
 
 .shopify-section-header-hidden {

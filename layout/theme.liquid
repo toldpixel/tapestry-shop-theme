@@ -9,10 +9,10 @@
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
     {%- if settings.favicon != blank -%}
-      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+      <link rel="icon" type="image/png" href="{{ settings.favicon | img_url: '32x32' }}">
     {%- endif -%}
 
-    {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
+    {%- unless settings.type_header_font.system? and settings.type_body_font.system? and settings.type_custom_header_font.system? -%}
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
 
@@ -36,6 +36,7 @@
       assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
       assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
       assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
+      assign custom_font_x = settings.type_custom_header_font | font_modify: 'weight', 'bold'
     %}
 
     {% style %}
@@ -44,6 +45,7 @@
       {{ body_font_italic | font_face: font_display: 'swap' }}
       {{ body_font_bold_italic | font_face: font_display: 'swap' }}
       {{ settings.type_header_font | font_face: font_display: 'swap' }}
+      {{ settings.type_custom_header_font | font_face: font_display: 'swap'}}
 
       :root {
         --font-body-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
@@ -106,10 +108,11 @@
           font-size: 1.6rem;
         }
       }
+
     {% endstyle %}
 
-    {{ 'base.css' | asset_url | stylesheet_tag }}
-
+   {{ 'base.css' | asset_url | stylesheet_tag }}
+   
     {%- unless settings.type_body_font.system? -%}
       <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
     {%- endunless -%}
@@ -131,7 +134,8 @@
     </a>
 
     {% section 'announcement-bar' %}
-    {% section 'header' %}
+    <!-- {% section 'header' %} -->
+    {% section 'allbirds_header' %}
     <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
       {{ content_for_layout }}
     </main>

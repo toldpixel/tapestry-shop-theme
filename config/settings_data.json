@@ -36,7 +36,6 @@
         "type": "header",
         "settings": {
           "color_scheme": "background-1",
-          "logo": "shopify://shop_images/TAPESTRYKING_1.png",
           "logo_width": 250,
           "logo_position": "middle-left",
           "menu": "main-menu",
@@ -58,14 +57,14 @@
             "type": "link_list",
             "settings": {
               "heading": "Über CosmicWALL",
-              "menu": "ber-uns-men"
+              "menu": ""
             }
           },
           "fe7cd573-6d34-47b4-acbe-577cfde16669": {
             "type": "text",
             "settings": {
               "heading": "Du hast noch offene Fragen ?",
-              "subtext": "<p>Share store details, promotions, or brand content with your customers.</p>"
+              "subtext": "<p>Share store details, promotions, or brand content with your customers.<\/p>"
             }
           }
         },
@@ -82,6 +81,15 @@
           "enable_country_selector": true,
           "enable_language_selector": true,
           "payment_enable": true
+        }
+      },
+      "allbirds_header": {
+        "type": "allbirds_header",
+        "settings": {
+          "menu": "main-menu",
+          "logo": "shopify:\/\/shop_images\/TAPESTRYKING_1_1.png",
+          "logo_width": 250,
+          "custom_header_font": "geometric_415_n4"
         }
       }
     },

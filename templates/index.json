@@ -2,13 +2,28 @@
   "sections": {
     "image_banner": {
       "type": "image-banner",
+      "blocks": {
+        "6630d7ad-edd8-437e-bbe1-315f562fe86c": {
+          "type": "call_to_action",
+          "settings": {
+            "cta": "Die besten Designs.",
+            "sub_heading": "Entdecke unvergleichliche Designs, die deinem Zuhause das gewisse Extra verleihen.",
+            "button_cta_1": "Mehr Erfahren",
+            "button_cta_link_1": "shopify:\/\/collections",
+            "button_style_cta_primary_1": true
+          }
+        }
+      },
+      "block_order": [
+        "6630d7ad-edd8-437e-bbe1-315f562fe86c"
+      ],
       "settings": {
-        "image": "shopify://shop_images/xorpad_a_european_king_sitting_on_a_mountain_of_fabrics_looking_a67e7cf0-06fc-4879-a958-c752b69f3808.png",
-        "image_height": "large",
+        "image_2": "shopify:\/\/shop_images\/xorpad_white_background_abstract_modern_art_minimalistic_painti_d7cbe36c-8d32-455b-99f8-04191b09859b.png",
+        "image_height": "medium",
         "adapt_height_first_image": false,
         "desktop_text_box_position": "center",
         "show_text_box": true,
-        "image_overlay_opacity": 0,
+        "image_overlay_opacity": 30,
         "color_scheme": "accent-1",
         "stack_images_on_mobile": true,
         "show_text_below": true
@@ -20,14 +35,14 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Top #1 Wandtücher Design's",
+            "heading": "Top #1 Wandbehang Design's",
             "heading_size": "h1"
           }
         },
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p>Entdecke unsere besten Tapiserie Designs und verleihe deiner Wohnung eine einzigartige Atmospähre. </p>"
+            "text": "<p>Entdecke unsere besten Tapestry Designs und verleihe deiner Wohnung eine einzigartige Atmospähre. <\/p>"
           }
         },
         "button": {
@@ -77,25 +92,25 @@
         "column1": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/icons8-price-tag-66.png",
+            "image": "shopify:\/\/shop_images\/icons8-price-tag-66.png",
             "title": "Geld-zurück",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>"
           }
         },
         "column2": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/icons8-gefaellt-mir-64.png",
+            "image": "shopify:\/\/shop_images\/icons8-gefaellt-mir-64.png",
             "title": "Langlebigkeit",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>"
           }
         },
         "column3": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/icons8-quality-64.png",
+            "image": "shopify:\/\/shop_images\/icons8-quality-64.png",
             "title": "Druckqualität",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>"
           }
         }
       },
